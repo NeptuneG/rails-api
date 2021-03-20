@@ -12,7 +12,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 20_210_320_092_824) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'plpgsql'
+
+  create_table 'assets', force: :cascade do |t|
+    t.string 'title', limit: 64, null: false
+    t.string 'description'
+    t.bigint 'genre_id', null: false
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.index ['genre_id'], name: 'index_assets_on_genre_id'
+  end
+
+  create_table 'genres', force: :cascade do |t|
+    t.string 'name', limit: 64, null: false
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+  end
+
+  add_foreign_key 'assets', 'genres'
 end

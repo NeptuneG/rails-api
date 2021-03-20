@@ -14,5 +14,13 @@ AllCops:
   TargetRubyVersion: 2.4
   SuggestExtensions: false
 
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*.rb'
+    - 'db/migrate/*.rb'
+
+RSpec/MultipleExpectations:
+  Enabled: false
+  
 Style/Documentation:
   Enabled: false
