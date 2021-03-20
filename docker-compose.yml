@@ -1,0 +1,39 @@
+version: '3'
+services:
+  app:
+    build: .
+    command: sh script/setup.sh
+    stdin_open: true
+    tty: true
+    ports:
+      - "3377:3377"
+    environment:
+      DB_HOST: db
+      REDIS_HOST: redis
+      GEM_HOME: /bundle
+    volumes:
+      - .:/app:cached
+      - bundle-data:/bundle
+    depends_on:
+      - db
+      - redis
+  redis:
+    image: redis:6.0-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+  db:
+    image: postgres:13.2-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      TZ: 'Asia/Tokyo'
+      POSTGRES_HOST_AUTH_METHOD: 'trust'
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+volumes:
+  db-data:
+  bundle-data:
+  redis-data:

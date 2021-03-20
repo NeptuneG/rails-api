@@ -1,0 +1,22 @@
+default: &default
+  adapter: postgresql
+  encoding: utf8
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  username: <%= ENV.fetch('DB_USER') { 'postgres' } %>
+  password: <%= ENV.fetch('DB_PASSWORD') { '' } %>
+  host: <%= ENV.fetch('DB_HOST') { 'db' } %>
+  port: <%= ENV.fetch('DB_PORT') { 5432 } %>
+
+development:
+  <<: *default
+  database: rails_api_development
+
+test:
+  <<: *default
+  database: rails_api_test
+
+production:
+  <<: *default
+  database: rails_api_production
+  username: rails_api
+  password: <%= ENV['RAILS_API_DATABASE_PASSWORD'] %>
