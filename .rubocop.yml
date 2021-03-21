@@ -11,6 +11,8 @@ AllCops:
     - 'tmp/**/*'
     - '.git/**/*'
     - 'bin/*'
+    - 'db/schema.rb'
+
   TargetRubyVersion: 2.4
   SuggestExtensions: false
 
@@ -18,6 +20,14 @@ Metrics/BlockLength:
   Exclude:
     - 'spec/**/*.rb'
     - 'db/migrate/*.rb'
+
+Naming/FileName:
+  Exclude:
+    - 'config/initializers/rswag-ui.rb'
+
+RSpec/EmptyExampleGroup:
+  Exclude:
+    - 'spec/integration/**/*.rb'
 
 RSpec/MultipleExpectations:
   Enabled: false

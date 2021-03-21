@@ -1,0 +1,156 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+paths:
+  "/api/v1/{database}/assets":
+    parameters:
+    - name: database
+      in: path
+      type: string
+      description: database name
+      schema:
+        default: rails_api_development
+      required: true
+    get:
+      summary: list assets
+      tags:
+      - Assets
+      responses:
+        '200':
+          description: successful
+    post:
+      summary: create asset
+      tags:
+      - Assets
+      responses:
+        '200':
+          description: successful
+  "/api/v1/{database}/assets/{id}":
+    parameters:
+    - name: database
+      in: path
+      type: string
+      description: database name
+      schema:
+        default: rails_api_development
+      required: true
+    - name: id
+      in: path
+      description: id
+      required: true
+      schema:
+        type: string
+    get:
+      summary: show asset
+      tags:
+      - Assets
+      responses:
+        '200':
+          description: successful
+    patch:
+      summary: update asset
+      tags:
+      - Assets
+      responses:
+        '200':
+          description: successful
+    put:
+      summary: update asset
+      tags:
+      - Assets
+      responses:
+        '200':
+          description: successful
+    delete:
+      summary: delete asset
+      tags:
+      - Assets
+      responses:
+        '200':
+          description: successful
+  "/api/v1/{database}/genres":
+    parameters:
+    - name: database
+      in: path
+      type: string
+      description: database name
+      schema:
+        default: rails_api_development
+      required: true
+    get:
+      summary: list genres
+      tags:
+      - Genres
+      responses:
+        '200':
+          description: successful
+    post:
+      summary: create genre
+      tags:
+      - Genres
+      parameters: []
+      responses:
+        '200':
+          description: successful
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+              required:
+              - name
+  "/api/v1/{database}/genres/{id}":
+    parameters:
+    - name: database
+      in: path
+      type: string
+      description: database name
+      schema:
+        default: rails_api_development
+      required: true
+    - name: id
+      in: path
+      description: id
+      required: true
+      schema:
+        type: string
+    get:
+      summary: show genre
+      tags:
+      - Genres
+      responses:
+        '200':
+          description: successful
+    patch:
+      summary: update genre
+      tags:
+      - Genres
+      responses:
+        '200':
+          description: successful
+    put:
+      summary: update genre
+      tags:
+      - Genres
+      responses:
+        '200':
+          description: successful
+    delete:
+      summary: delete genre
+      tags:
+      - Genres
+      responses:
+        '200':
+          description: successful
+servers:
+- url: "{scheme}://{defaultHost}"
+  variables:
+    scheme:
+      default: http
+    defaultHost:
+      default: localhost:3377
