@@ -3,6 +3,8 @@
 module Api
   module V1
     class AssetsController < ApplicationController
+      include DatabaseHandler
+
       before_action :set_asset, only: %i[show update destroy]
 
       def index
@@ -19,7 +21,7 @@ module Api
         @asset = Asset.new(asset_params)
 
         if @asset.save
-          render json: @asset, status: :created, location: api_v1_asset_url(@asset)
+          render json: @asset, status: :created, location: api_v1_asset_url(@asset, database: @database)
         else
           render json: @asset.errors, status: :unprocessable_entity
         end

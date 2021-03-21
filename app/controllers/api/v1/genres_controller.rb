@@ -3,6 +3,8 @@
 module Api
   module V1
     class GenresController < ApplicationController
+      include DatabaseHandler
+
       before_action :set_genre, only: %i[show update destroy]
 
       def index
@@ -19,7 +21,7 @@ module Api
         @genre = Genre.new(genre_params)
 
         if @genre.save
-          render json: @genre, status: :created, location: api_v1_genre_url(@genre)
+          render json: @genre, status: :created, location: api_v1_genre_url(@genre, database: @database)
         else
           render json: @genre.errors, status: :unprocessable_entity
         end

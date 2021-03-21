@@ -3,6 +3,8 @@
 require 'rails_helper'
 
 RSpec.describe '/api/v1/assets', type: :request do
+  let(:database) { 'rails_api_test' }
+
   let_it_be(:genre) { Genre.create!(name: 'test') }
 
   let_it_be(:valid_attributes) { { genre_id: genre.id, title: 'Long Vacation' } }
@@ -13,21 +15,22 @@ RSpec.describe '/api/v1/assets', type: :request do
 
   describe 'GET /index' do
     it 'renders a successful response' do
-      get api_v1_assets_url, headers: valid_headers, as: :json
+      get api_v1_assets_url(database: database), headers: valid_headers, as: :json
       expect(response).to be_successful
     end
   end
 
   describe 'GET /show' do
     it 'renders a successful response' do
-      get api_v1_asset_url(asset), as: :json
+      get api_v1_asset_url(asset, database: database), as: :json
       expect(response).to be_successful
     end
   end
 
   describe 'POST /create' do
     subject(:create_an_asset) do
-      post api_v1_assets_url, params: { asset: attributes }, headers: valid_headers, as: :json
+      post(api_v1_assets_url(database: database),
+           params: { asset: attributes }, headers: valid_headers, as: :json)
     end
 
     context 'with valid parameters' do
@@ -61,7 +64,8 @@ RSpec.describe '/api/v1/assets', type: :request do
 
   describe 'PATCH /update' do
     subject(:update_an_asset) do
-      patch api_v1_asset_url(asset), params: { asset: new_attributes }, headers: valid_headers, as: :json
+      patch(api_v1_asset_url(asset, database: database),
+            params: { asset: new_attributes }, headers: valid_headers, as: :json)
     end
 
     context 'with valid parameters' do
@@ -92,8 +96,10 @@ RSpec.describe '/api/v1/assets', type: :request do
 
   describe 'DELETE /destroy' do
     it 'destroys the requested asset' do
-      expect { delete api_v1_asset_url(asset), headers: valid_headers, as: :json }
-        .to change(Asset, :count).by(-1)
+      expect do
+        delete(api_v1_asset_url(asset, database: database),
+               headers: valid_headers, as: :json)
+      end.to change(Asset, :count).by(-1)
     end
   end
 end
