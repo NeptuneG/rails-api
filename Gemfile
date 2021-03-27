@@ -15,6 +15,7 @@ gem 'puma', '~> 5.0'
 # gem 'jbuilder', '~> 2.7'
 # Use Redis adapter to run Action Cable in production
 gem 'redis', '~> 4.0'
+gem 'redis-namespace'
 # Use Active Model has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
@@ -29,6 +30,13 @@ gem 'bootsnap', '>= 1.4.4', require: false
 
 gem 'rswag-api'
 gem 'rswag-ui'
+
+# Sidekiq
+gem 'sidekiq', '~> 6.1.2'
+gem 'sidekiq-batch', '~> 0.1.6'
+gem 'sidekiq_queue_metrics', '~> 3.0.0'
+gem 'sidekiq-status', '~> 1.1.4'
+gem 'sidekiq-throttled', '~> 0.13.0'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
