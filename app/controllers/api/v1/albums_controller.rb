@@ -44,7 +44,7 @@ module Api
       end
 
       def album_params
-        params.require(:album).permit(:title, :description, :genre_id)
+        params.require(:album).permit(:title, :description, :genre_id, :artist_id)
       end
     end
   end

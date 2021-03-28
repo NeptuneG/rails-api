@@ -18,13 +18,17 @@ RSpec.describe 'api/v1/albums', type: :request do
         properties: {
           title: { type: :string },
           description: { type: :string },
+          artist_id: { type: :string },
           genre_id: { type: :string }
         },
         required: %w[title genre_id]
       }
 
       response(201, 'successful') do
-        let(:album) { attributes_for(:album, genre_id: create(:genre).id) }
+        let(:album) do
+          attributes_for(:album, artist_id: create(:artist).id,
+                                 genre_id: create(:genre).id)
+        end
         run_test!
       end
     end
@@ -51,6 +55,7 @@ RSpec.describe 'api/v1/albums', type: :request do
         properties: {
           title: { type: :string },
           description: { type: :string },
+          artist_id: { type: :string },
           genre_id: { type: :string }
         }
       }
@@ -72,6 +77,7 @@ RSpec.describe 'api/v1/albums', type: :request do
         properties: {
           title: { type: :string },
           description: { type: :string },
+          artist_id: { type: :string },
           genre_id: { type: :string }
         }
       }

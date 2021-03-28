@@ -30,6 +30,8 @@ paths:
                   type: string
                 description:
                   type: string
+                artist_id:
+                  type: string
                 genre_id:
                   type: string
               required:
@@ -68,6 +70,8 @@ paths:
                   type: string
                 description:
                   type: string
+                artist_id:
+                  type: string
                 genre_id:
                   type: string
     put:
@@ -87,6 +91,8 @@ paths:
                 title:
                   type: string
                 description:
+                  type: string
+                artist_id:
                   type: string
                 genre_id:
                   type: string

@@ -7,5 +7,6 @@ FactoryBot.define do
     description { Faker::Movie.quote }
 
     association :genre
+    association :artist
   end
 end
