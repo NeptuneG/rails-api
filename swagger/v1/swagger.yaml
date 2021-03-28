@@ -4,15 +4,7 @@ info:
   title: API V1
   version: v1
 paths:
-  "/api/v1/{database}/assets":
-    parameters:
-    - name: database
-      in: path
-      type: string
-      description: database name
-      schema:
-        default: rails_api_development
-      required: true
+  "/api/v1/assets":
     get:
       summary: list assets
       tags:
@@ -24,18 +16,27 @@ paths:
       summary: create asset
       tags:
       - Assets
+      parameters: []
       responses:
-        '200':
+        '201':
           description: successful
-  "/api/v1/{database}/assets/{id}":
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                description:
+                  type: string
+                genre_id:
+                  type: string
+              required:
+              - title
+              - genre_id
+  "/api/v1/assets/{id}":
     parameters:
-    - name: database
-      in: path
-      type: string
-      description: database name
-      schema:
-        default: rails_api_development
-      required: true
     - name: id
       in: path
       description: id
@@ -53,32 +54,50 @@ paths:
       summary: update asset
       tags:
       - Assets
+      parameters: []
       responses:
         '200':
           description: successful
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                description:
+                  type: string
+                genre_id:
+                  type: string
     put:
       summary: update asset
       tags:
       - Assets
+      parameters: []
       responses:
         '200':
           description: successful
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                description:
+                  type: string
+                genre_id:
+                  type: string
     delete:
       summary: delete asset
       tags:
       - Assets
       responses:
-        '200':
+        '204':
           description: successful
-  "/api/v1/{database}/genres":
-    parameters:
-    - name: database
-      in: path
-      type: string
-      description: database name
-      schema:
-        default: rails_api_development
-      required: true
+  "/api/v1/genres":
     get:
       summary: list genres
       tags:
@@ -92,7 +111,7 @@ paths:
       - Genres
       parameters: []
       responses:
-        '200':
+        '201':
           description: successful
       requestBody:
         content:
@@ -104,15 +123,8 @@ paths:
                   type: string
               required:
               - name
-  "/api/v1/{database}/genres/{id}":
+  "/api/v1/genres/{id}":
     parameters:
-    - name: database
-      in: path
-      type: string
-      description: database name
-      schema:
-        default: rails_api_development
-      required: true
     - name: id
       in: path
       description: id
@@ -130,22 +142,40 @@ paths:
       summary: update genre
       tags:
       - Genres
+      parameters: []
       responses:
         '200':
           description: successful
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
     put:
       summary: update genre
       tags:
       - Genres
+      parameters: []
       responses:
         '200':
           description: successful
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
     delete:
       summary: delete genre
       tags:
       - Genres
       responses:
-        '200':
+        '204':
           description: successful
 servers:
 - url: "{scheme}://{defaultHost}"

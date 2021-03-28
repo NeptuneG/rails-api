@@ -1,0 +1,14 @@
+common: &common
+  url:
+    scheme: 'http'
+    host: <%= ENV['ELASTICSEARCH_HOST'] || 'elasticsearch' %>
+    port: <%= ENV['ELASTICSEARCH_PORT'] || '9200' %>
+  timeout: 5
+  log: true
+
+development:
+  <<: *common
+
+test:
+  <<: *common
+  log: false
