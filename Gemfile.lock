@@ -283,7 +283,6 @@ PLATFORMS
 
 DEPENDENCIES
   bootsnap (>= 1.4.4)
-  byebug
   elasticsearch (~> 7.0)
   elasticsearch-model (~> 7.0)
   elasticsearch-rails (~> 7.0)
