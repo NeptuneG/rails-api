@@ -38,7 +38,9 @@ jobs:
             gem install bundler --no-document
             bundle install --jobs 4 --retry 3
         - name: Database Create
-          run: bundle exec rails db:prepare db:migrate
+          run: |
+            cp .github/database.yml config/database.yml
+            bundle exec rails db:prepare db:migrate
           env:
             RAILS_ENV: test
         - name: Rspec Test
