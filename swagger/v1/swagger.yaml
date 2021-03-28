@@ -4,18 +4,18 @@ info:
   title: API V1
   version: v1
 paths:
-  "/api/v1/assets":
+  "/api/v1/albums":
     get:
-      summary: list assets
+      summary: list albums
       tags:
-      - Assets
+      - Albums
       responses:
         '200':
           description: successful
     post:
-      summary: create asset
+      summary: create album
       tags:
-      - Assets
+      - Albums
       parameters: []
       responses:
         '201':
@@ -35,7 +35,7 @@ paths:
               required:
               - title
               - genre_id
-  "/api/v1/assets/{id}":
+  "/api/v1/albums/{id}":
     parameters:
     - name: id
       in: path
@@ -44,16 +44,16 @@ paths:
       schema:
         type: string
     get:
-      summary: show asset
+      summary: show album
       tags:
-      - Assets
+      - Albums
       responses:
         '200':
           description: successful
     patch:
-      summary: update asset
+      summary: update album
       tags:
-      - Assets
+      - Albums
       parameters: []
       responses:
         '200':
@@ -71,9 +71,9 @@ paths:
                 genre_id:
                   type: string
     put:
-      summary: update asset
+      summary: update album
       tags:
-      - Assets
+      - Albums
       parameters: []
       responses:
         '200':
@@ -91,9 +91,9 @@ paths:
                 genre_id:
                   type: string
     delete:
-      summary: delete asset
+      summary: delete album
       tags:
-      - Assets
+      - Albums
       responses:
         '204':
           description: successful
