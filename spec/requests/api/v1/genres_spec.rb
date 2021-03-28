@@ -3,8 +3,6 @@
 require 'rails_helper'
 
 RSpec.describe '/api/v1/genres', type: :request do
-  let(:database) { 'rails_api_test' }
-
   let_it_be(:valid_attributes) { { name: 'anime' } }
   let_it_be(:invalid_attributes) { { name: nil } }
   let_it_be(:valid_headers) { {} }
@@ -12,21 +10,21 @@ RSpec.describe '/api/v1/genres', type: :request do
 
   describe 'GET /index' do
     it 'renders a successful response' do
-      get(api_v1_genres_url(database: database), headers: valid_headers, as: :json)
+      get(api_v1_genres_url, headers: valid_headers, as: :json)
       expect(response).to be_successful
     end
   end
 
   describe 'GET /show' do
     it 'renders a successful response' do
-      get api_v1_genre_url(genre, database: database), as: :json
+      get api_v1_genre_url(genre), as: :json
       expect(response).to be_successful
     end
   end
 
   describe 'POST /create' do
     subject(:create_a_genre) do
-      post(api_v1_genres_url(database: database),
+      post(api_v1_genres_url,
            params: { genre: attributes }, headers: valid_headers, as: :json)
     end
 
@@ -61,7 +59,7 @@ RSpec.describe '/api/v1/genres', type: :request do
 
   describe 'PATCH /update' do
     subject(:update_a_genre) do
-      patch(api_v1_genre_url(genre, database: database),
+      patch(api_v1_genre_url(genre),
             params: { genre: new_attributes }, headers: valid_headers, as: :json)
     end
 
@@ -94,7 +92,7 @@ RSpec.describe '/api/v1/genres', type: :request do
   describe 'DELETE /destroy' do
     it 'destroys the requested genre' do
       expect do
-        delete(api_v1_genre_url(genre, database: database),
+        delete(api_v1_genre_url(genre),
                headers: valid_headers, as: :json)
       end.to change(Genre, :count).by(-1)
     end

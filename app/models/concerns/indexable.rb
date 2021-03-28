@@ -5,7 +5,7 @@ module Indexable
 
   included do
     include Elasticsearch::Model
-    include Elasticsearch::Model::Callbacks
+    include Elasticsearch::Model::Callbacks unless Rails.env.test?
 
     document_type name.underscore.pluralize
     index_name    Rails.env

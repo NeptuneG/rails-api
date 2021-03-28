@@ -3,6 +3,6 @@
 FactoryBot.define do
   factory :genre do
     sequence(:id)
-    name { 'movie' }
+    name { Faker::Music::Hiphop.subgenres }
   end
 end
