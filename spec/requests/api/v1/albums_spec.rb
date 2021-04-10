@@ -3,16 +3,10 @@
 require 'rails_helper'
 
 RSpec.describe '/api/v1/albums', type: :request do
-  let_it_be(:genre) { create(:genre) }
-  let_it_be(:artist) { create(:artist) }
-
-  let_it_be(:valid_attributes) do
-    { artist_id: artist.id, genre_id: genre.id, title: 'Long Vacation' }
-  end
+  let_it_be(:album) { create(:album) }
+  let_it_be(:valid_attributes) { album.attributes }
   let_it_be(:invalid_attributes) { { genre_id: nil, title: 'Long Vacation' } }
   let_it_be(:valid_headers) { {} }
-
-  let_it_be(:album) { Album.create!(valid_attributes) }
 
   describe 'GET /index' do
     it 'renders a successful response' do

@@ -11,8 +11,11 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
+      resources :genres, only: :index
+      resources :artists, param: :slug do
+        resources :albums, only: :index
+      end
       resources :albums
-      resources :genres
     end
   end
 end

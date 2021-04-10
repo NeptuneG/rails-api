@@ -30,6 +30,8 @@ paths:
                   type: string
                 description:
                   type: string
+                release_year:
+                  type: integer
                 artist_id:
                   type: string
                 genre_id:
@@ -70,6 +72,8 @@ paths:
                   type: string
                 description:
                   type: string
+                release_year:
+                  type: integer
                 artist_id:
                   type: string
                 genre_id:
@@ -92,6 +96,8 @@ paths:
                   type: string
                 description:
                   type: string
+                release_year:
+                  type: integer
                 artist_id:
                   type: string
                 genre_id:
@@ -103,18 +109,18 @@ paths:
       responses:
         '204':
           description: successful
-  "/api/v1/genres":
+  "/api/v1/artists":
     get:
-      summary: list genres
+      summary: list artists
       tags:
-      - Genres
+      - Artists
       responses:
         '200':
           description: successful
     post:
-      summary: create genre
+      summary: create artist
       tags:
-      - Genres
+      - Artists
       parameters: []
       responses:
         '201':
@@ -127,27 +133,29 @@ paths:
               properties:
                 name:
                   type: string
+                description:
+                  type: string
               required:
               - name
-  "/api/v1/genres/{id}":
+  "/api/v1/artists/{artist_slug}":
     parameters:
-    - name: id
+    - name: artist_slug
       in: path
-      description: id
+      description: artist's name
       required: true
       schema:
         type: string
     get:
-      summary: show genre
+      summary: show artist
       tags:
-      - Genres
+      - Artists
       responses:
         '200':
           description: successful
     patch:
-      summary: update genre
+      summary: update artist
       tags:
-      - Genres
+      - Artists
       parameters: []
       responses:
         '200':
@@ -159,11 +167,13 @@ paths:
               type: object
               properties:
                 name:
+                  type: string
+                description:
                   type: string
     put:
-      summary: update genre
+      summary: update artist
       tags:
-      - Genres
+      - Artists
       parameters: []
       responses:
         '200':
@@ -176,12 +186,37 @@ paths:
               properties:
                 name:
                   type: string
+                description:
+                  type: string
     delete:
-      summary: delete genre
+      summary: delete artist
+      tags:
+      - Artists
+      responses:
+        '204':
+          description: successful
+  "/api/v1/artists/{artist_slug}/albums":
+    parameters:
+    - name: artist_slug
+      in: path
+      description: artist's name
+      required: true
+      schema:
+        type: string
+    get:
+      summary: list albums of an artist
+      tags:
+      - Artists
+      responses:
+        '200':
+          description: successful
+  "/api/v1/genres":
+    get:
+      summary: list genres
       tags:
       - Genres
       responses:
-        '204':
+        '200':
           description: successful
 servers:
 - url: "{scheme}://{defaultHost}"

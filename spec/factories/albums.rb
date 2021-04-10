@@ -5,6 +5,7 @@ FactoryBot.define do
     sequence(:id)
     title { Faker::Music.album }
     description { Faker::Movie.quote }
+    release_year { Faker::Vehicle.year }
 
     association :genre
     association :artist

@@ -18,6 +18,7 @@ RSpec.describe 'api/v1/albums', type: :request do
         properties: {
           title: { type: :string },
           description: { type: :string },
+          release_year: { type: :integer },
           artist_id: { type: :string },
           genre_id: { type: :string }
         },
@@ -55,6 +56,7 @@ RSpec.describe 'api/v1/albums', type: :request do
         properties: {
           title: { type: :string },
           description: { type: :string },
+          release_year: { type: :integer },
           artist_id: { type: :string },
           genre_id: { type: :string }
         }
@@ -77,6 +79,7 @@ RSpec.describe 'api/v1/albums', type: :request do
         properties: {
           title: { type: :string },
           description: { type: :string },
+          release_year: { type: :integer },
           artist_id: { type: :string },
           genre_id: { type: :string }
         }

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Album < ApplicationRecord
-  include Indexable
+  include Searchable
 
   belongs_to :artist
   belongs_to :genre
