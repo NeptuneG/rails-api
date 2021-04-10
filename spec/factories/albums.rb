@@ -7,7 +7,7 @@ FactoryBot.define do
     description { Faker::Movie.quote }
     release_year { Faker::Vehicle.year }
 
-    association :genre
-    association :artist
+    genre
+    artist
   end
 end

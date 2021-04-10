@@ -4,8 +4,6 @@ require 'rails_helper'
 
 RSpec.describe '/api/v1/albums', type: :request do
   let_it_be(:album) { create(:album) }
-  let_it_be(:valid_attributes) { album.attributes }
-  let_it_be(:invalid_attributes) { { genre_id: nil, title: 'Long Vacation' } }
   let_it_be(:valid_headers) { {} }
 
   describe 'GET /index' do
@@ -29,7 +27,9 @@ RSpec.describe '/api/v1/albums', type: :request do
     end
 
     context 'with valid parameters' do
-      let(:attributes) { valid_attributes }
+      let(:attributes) do
+        attributes_for(:album, artist_id: create(:artist).id, genre_id: create(:genre).id)
+      end
 
       it 'creates a new album' do
         expect { create_an_album }.to change(Album, :count).by(1)
@@ -43,7 +43,7 @@ RSpec.describe '/api/v1/albums', type: :request do
     end
 
     context 'with invalid parameters' do
-      let(:attributes) { invalid_attributes }
+      let(:attributes) { attributes_for(:album, genre_id: nil) }
 
       it 'does not create a new album' do
         expect { create_an_album }.to change(Album, :count).by(0)
