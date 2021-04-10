@@ -1,24 +1,25 @@
-# README
+# Rails Api
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Start
 
-Things you may want to cover:
+```bash
+docker-compose up -d
+```
 
-* Ruby version
+## Swagger
 
-* System dependencies
+http://localhost:3377/api-docs
 
-* Configuration
 
-* Database creation
+## TODO
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+- [ ] Search
+- [ ] Auth
+- [ ] Pagination
+- [ ] Model of Lives
+    - [ ] Job for fetching lives
+    - [ ] Api for jobs (trigger / status)
+- [ ] Documents
+- [ ] Monitoring
+- [ ] Logging
+- [ ] Deployment

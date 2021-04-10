@@ -22,6 +22,8 @@ services:
   sidekiq:
     <<: *app_setting
     command: bundle exec sidekiq -C config/sidekiq.yml
+    depends_on:
+      - app
   redis:
     image: redis:6.0-alpine
     ports:
@@ -44,6 +46,7 @@ services:
       - "9300:9300"
     environment:
       - discovery.type=single-node
+      - cluster.name=rails-api-cluster
     volumes:
       - elasticsearch-data:/usr/share/elasticsearch/data
 

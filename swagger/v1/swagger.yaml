@@ -4,18 +4,18 @@ info:
   title: API V1
   version: v1
 paths:
-  "/api/v1/assets":
+  "/api/v1/albums":
     get:
-      summary: list assets
+      summary: list albums
       tags:
-      - Assets
+      - Albums
       responses:
         '200':
           description: successful
     post:
-      summary: create asset
+      summary: create album
       tags:
-      - Assets
+      - Albums
       parameters: []
       responses:
         '201':
@@ -30,12 +30,16 @@ paths:
                   type: string
                 description:
                   type: string
+                release_year:
+                  type: integer
+                artist_id:
+                  type: string
                 genre_id:
                   type: string
               required:
               - title
               - genre_id
-  "/api/v1/assets/{id}":
+  "/api/v1/albums/{id}":
     parameters:
     - name: id
       in: path
@@ -44,16 +48,16 @@ paths:
       schema:
         type: string
     get:
-      summary: show asset
+      summary: show album
       tags:
-      - Assets
+      - Albums
       responses:
         '200':
           description: successful
     patch:
-      summary: update asset
+      summary: update album
       tags:
-      - Assets
+      - Albums
       parameters: []
       responses:
         '200':
@@ -67,13 +71,17 @@ paths:
                 title:
                   type: string
                 description:
+                  type: string
+                release_year:
+                  type: integer
+                artist_id:
                   type: string
                 genre_id:
                   type: string
     put:
-      summary: update asset
+      summary: update album
       tags:
-      - Assets
+      - Albums
       parameters: []
       responses:
         '200':
@@ -88,14 +96,119 @@ paths:
                   type: string
                 description:
                   type: string
+                release_year:
+                  type: integer
+                artist_id:
+                  type: string
                 genre_id:
                   type: string
     delete:
-      summary: delete asset
+      summary: delete album
       tags:
-      - Assets
+      - Albums
       responses:
         '204':
+          description: successful
+  "/api/v1/artists":
+    get:
+      summary: list artists
+      tags:
+      - Artists
+      responses:
+        '200':
+          description: successful
+    post:
+      summary: create artist
+      tags:
+      - Artists
+      parameters: []
+      responses:
+        '201':
+          description: successful
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                description:
+                  type: string
+              required:
+              - name
+  "/api/v1/artists/{artist_slug}":
+    parameters:
+    - name: artist_slug
+      in: path
+      description: artist's name
+      required: true
+      schema:
+        type: string
+    get:
+      summary: show artist
+      tags:
+      - Artists
+      responses:
+        '200':
+          description: successful
+    patch:
+      summary: update artist
+      tags:
+      - Artists
+      parameters: []
+      responses:
+        '200':
+          description: successful
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                description:
+                  type: string
+    put:
+      summary: update artist
+      tags:
+      - Artists
+      parameters: []
+      responses:
+        '200':
+          description: successful
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                description:
+                  type: string
+    delete:
+      summary: delete artist
+      tags:
+      - Artists
+      responses:
+        '204':
+          description: successful
+  "/api/v1/artists/{artist_slug}/albums":
+    parameters:
+    - name: artist_slug
+      in: path
+      description: artist's name
+      required: true
+      schema:
+        type: string
+    get:
+      summary: list albums of an artist
+      tags:
+      - Artists
+      responses:
+        '200':
           description: successful
   "/api/v1/genres":
     get:
@@ -104,78 +217,6 @@ paths:
       - Genres
       responses:
         '200':
-          description: successful
-    post:
-      summary: create genre
-      tags:
-      - Genres
-      parameters: []
-      responses:
-        '201':
-          description: successful
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                name:
-                  type: string
-              required:
-              - name
-  "/api/v1/genres/{id}":
-    parameters:
-    - name: id
-      in: path
-      description: id
-      required: true
-      schema:
-        type: string
-    get:
-      summary: show genre
-      tags:
-      - Genres
-      responses:
-        '200':
-          description: successful
-    patch:
-      summary: update genre
-      tags:
-      - Genres
-      parameters: []
-      responses:
-        '200':
-          description: successful
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                name:
-                  type: string
-    put:
-      summary: update genre
-      tags:
-      - Genres
-      parameters: []
-      responses:
-        '200':
-          description: successful
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                name:
-                  type: string
-    delete:
-      summary: delete genre
-      tags:
-      - Genres
-      responses:
-        '204':
           description: successful
 servers:
 - url: "{scheme}://{defaultHost}"

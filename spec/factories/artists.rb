@@ -1,11 +1,9 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
-  factory :asset do
+  factory :artist do
     sequence(:id)
-    title { Faker::Movie.title }
+    name { Faker::Music.band }
     description { Faker::Movie.quote }
-
-    association :genre
   end
 end

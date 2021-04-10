@@ -40,7 +40,7 @@ jobs:
         - name: Database Create
           run: |
             cp .github/database.yml config/database.yml
-            bundle exec rails db:prepare db:migrate
+            bundle exec rails db:create db:migrate
           env:
             RAILS_ENV: test
         - name: Rspec Test
