@@ -28,7 +28,13 @@ RSpec.describe '/api/v1/albums', type: :request do
 
     context 'with valid parameters' do
       let(:attributes) do
-        attributes_for(:album, artist_id: create(:artist).id, genre_id: create(:genre).id)
+        {
+          title: 'IGOR',
+          description: 'Produced entirely by Tyler',
+          year: 2019,
+          artist_id: create(:artist).id,
+          genre_id: create(:genre).id
+        }
       end
 
       it 'creates a new album' do
@@ -43,7 +49,15 @@ RSpec.describe '/api/v1/albums', type: :request do
     end
 
     context 'with invalid parameters' do
-      let(:attributes) { attributes_for(:album, genre_id: nil) }
+      let(:attributes) do
+        {
+          title: 'IGOR',
+          description: 'Produced entirely by Tyler',
+          year: 2019,
+          artist_id: create(:artist).id,
+          genre_id: nil
+        }
+      end
 
       it 'does not create a new album' do
         expect { create_an_album }.to change(Album, :count).by(0)
