@@ -11,6 +11,28 @@ describe '/api/v1/albums', type: :request do
       get api_v1_albums_url, headers: valid_headers, as: :json
       expect(response).to be_successful
     end
+
+    context 'with artist_slug' do
+      let!(:artist) { create(:artist, name: 'foo') }
+
+      context 'when the artist exists' do
+        let!(:artist_albums) { create_list(:album, 2, artist: artist) }
+
+        it 'returns the albums of the artist' do
+          get api_v1_artist_albums_url(artist.slug), headers: valid_headers, as: :json
+          expect(response.body).to eq({
+            data: artist_albums.map do |album|
+              {
+                id: album.id, title: album.title, description: album.description,
+                release_year: album.release_year, genre: album.genre.name,
+                artist: album.artist.name
+              }
+            end
+          }.to_json)
+          expect(response).to be_successful
+        end
+      end
+    end
   end
 
   describe 'GET /show' do
