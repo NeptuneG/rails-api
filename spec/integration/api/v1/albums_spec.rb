@@ -2,7 +2,7 @@
 
 require 'swagger_helper'
 
-RSpec.describe 'api/v1/albums', type: :request do
+describe 'api/v1/albums', type: :request do
   path '/api/v1/albums' do
     get('list albums') do
       tags 'Albums'

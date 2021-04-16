@@ -2,9 +2,9 @@
 
 require 'rails_helper'
 
-RSpec.describe '/api/v1/albums', type: :request do
+describe '/api/v1/albums', type: :request do
   let_it_be(:album) { create(:album) }
-  let_it_be(:valid_headers) { {} }
+  let(:valid_headers) { {} }
 
   describe 'GET /index' do
     it 'renders a successful response' do

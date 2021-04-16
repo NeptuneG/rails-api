@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Api::V1::AlbumsController, type: :routing do
+describe Api::V1::AlbumsController, type: :routing do
   describe 'routing' do
     it 'routes to #index' do
       expect(get: '/api/v1/albums').to route_to('api/v1/albums#index')
