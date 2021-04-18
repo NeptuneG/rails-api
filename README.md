@@ -15,7 +15,8 @@ http://localhost:3377/api-docs
 
 - [ ] Search
 - [ ] Auth
-- [ ] Pagination
+- [x] Pagination
+- [ ] Rate Limits
 - [ ] Model of Lives
     - [ ] Job for fetching lives
     - [ ] Api for jobs (trigger / status)
