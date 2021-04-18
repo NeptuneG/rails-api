@@ -11,10 +11,11 @@ describe CursorPaginator do
   let(:request) { ActionDispatch::Request.new('') }
   let(:params) do
     {
-      starting_after: Base64.urlsafe_encode64('5'),
+      starting_after: Base64.urlsafe_encode64(cursor.to_s),
       size: size
     }
   end
+  let(:cursor) { albums[4].id }
   let(:size) { 10 }
   let(:query_parameters) { params }
   let(:path) { '/albums' }
@@ -37,7 +38,7 @@ describe CursorPaginator do
 
     it 'sets next_page as uri of the next page' do
       expect(cursor_paginate[:meta][:next_page])
-        .to eq "#{path}?#{params.merge(starting_after: Base64.urlsafe_encode64('6')).to_query}"
+        .to eq "#{path}?#{params.merge(starting_after: Base64.urlsafe_encode64((cursor + 1).to_s)).to_query}"
     end
   end
 
@@ -56,10 +57,10 @@ describe CursorPaginator do
   context 'when no size is specified in the params' do
     let(:params) do
       {
-        starting_after: Base64.urlsafe_encode64('5')
+        starting_after: Base64.urlsafe_encode64(cursor.to_s)
       }
     end
-    let(:next_cursor_token) { Base64.urlsafe_encode64((5 + CursorPaginator::PER_PAGE_DEFAULT).to_s) }
+    let(:next_cursor_token) { Base64.urlsafe_encode64((cursor + CursorPaginator::PER_PAGE_DEFAULT).to_s) }
 
     it 'returns the data in the page' do
       expect(cursor_paginate[:data]).to match_array albums[5...5 + CursorPaginator::PER_PAGE_DEFAULT]
@@ -104,7 +105,7 @@ describe CursorPaginator do
 
   context 'when no cursor or size is specified' do
     let(:params) { {} }
-    let(:next_cursor_token) { Base64.urlsafe_encode64(CursorPaginator::PER_PAGE_DEFAULT.to_s) }
+    let(:next_cursor_token) { Base64.urlsafe_encode64(albums[CursorPaginator::PER_PAGE_DEFAULT - 1].id.to_s) }
 
     it 'returns the data in the first page' do
       expect(cursor_paginate[:data]).to match_array albums[0...CursorPaginator::PER_PAGE_DEFAULT]

@@ -3,6 +3,6 @@
 FactoryBot.define do
   factory :genre do
     sequence(:id)
-    name { Faker::Music.unique.genre }
+    sequence(:name) { |n| "#{Faker::Music.genre}-#{n}" }
   end
 end
