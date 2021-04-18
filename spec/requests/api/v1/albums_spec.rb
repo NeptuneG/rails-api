@@ -3,7 +3,6 @@
 require 'rails_helper'
 
 describe '/api/v1/albums', type: :request do
-  let_it_be(:album) { create(:album) }
   let(:valid_headers) { {} }
 
   describe 'GET /index' do
@@ -37,6 +36,8 @@ describe '/api/v1/albums', type: :request do
   end
 
   describe 'GET /show' do
+    let!(:album) { create(:album) }
+
     it 'renders a successful response' do
       get api_v1_album_url(album), as: :json
       expect(response).to be_successful
@@ -100,6 +101,8 @@ describe '/api/v1/albums', type: :request do
             params: { album: new_attributes }, headers: valid_headers, as: :json)
     end
 
+    let!(:album) { create(:album) }
+
     context 'with valid parameters' do
       let(:new_attributes) { { title: 'HERO' } }
 
@@ -127,6 +130,8 @@ describe '/api/v1/albums', type: :request do
   end
 
   describe 'DELETE /destroy' do
+    let!(:album) { create(:album) }
+
     it 'destroys the requested album' do
       expect do
         delete(api_v1_album_url(album),
