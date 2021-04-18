@@ -1,3 +1,7 @@
 # frozen_string_literal: true
 
-Elasticsearch::Model.client = Clients::ElasticSearch.client unless Rails.env.test?
+unless Rails.env.test?
+  Elasticsearch::Model.client = Elasticsearch::Client.new(
+    Rails.application.config_for(:elastic_search)
+  )
+end
