@@ -12,7 +12,7 @@ describe CursorPaginator do
   let(:params) do
     {
       starting_after: Base64.urlsafe_encode64(cursor.to_s),
-      size: size
+      size: size.to_s
     }
   end
   let(:cursor) { albums[4].id }
@@ -121,7 +121,7 @@ describe CursorPaginator do
     let(:params) do
       {
         ending_before: Base64.urlsafe_encode64(cursor.to_s),
-        size: size
+        size: size.to_s
       }
     end
     let(:cursor) { albums[4].id }
