@@ -2,7 +2,7 @@
 
 require 'swagger_helper'
 
-RSpec.describe 'api/v1/genres', type: :request do
+describe 'api/v1/genres', type: :request do
   path '/api/v1/genres' do
     get('list genres') do
       tags 'Genres'

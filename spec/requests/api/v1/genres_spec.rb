@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe '/api/v1/genres', type: :request do
+describe '/api/v1/genres', type: :request do
   describe 'GET /index' do
     let(:valid_headers) { {} }
 

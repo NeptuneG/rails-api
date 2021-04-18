@@ -2,10 +2,8 @@
 
 require 'rails_helper'
 
-RSpec.describe '/api/v1/artists', type: :request do
-  let_it_be(:valid_attributes) { attributes_for(:artist) }
-  let_it_be(:invalid_attributes) { { name: nil } }
-  let_it_be(:valid_headers) { {} }
+describe '/api/v1/artists', type: :request do
+  let(:valid_headers) { {} }
 
   describe 'GET /index' do
     it 'renders a successful response' do
@@ -30,7 +28,7 @@ RSpec.describe '/api/v1/artists', type: :request do
     end
 
     context 'with valid parameters' do
-      let(:attributes) { valid_attributes }
+      let(:attributes) { attributes_for(:artist) }
 
       it 'creates a new Artist' do
         expect { create_an_artist }.to change(Artist, :count).by(1)
@@ -44,7 +42,7 @@ RSpec.describe '/api/v1/artists', type: :request do
     end
 
     context 'with invalid parameters' do
-      let(:attributes) { invalid_attributes }
+      let(:attributes) { { name: nil } }
 
       it 'does not create a new Artist' do
         expect { create_an_artist }.to change(Artist, :count).by(0)

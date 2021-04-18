@@ -2,18 +2,42 @@
 
 require 'rails_helper'
 
-RSpec.describe '/api/v1/albums', type: :request do
-  let_it_be(:album) { create(:album) }
-  let_it_be(:valid_headers) { {} }
+describe '/api/v1/albums', type: :request do
+  let(:valid_headers) { {} }
 
   describe 'GET /index' do
     it 'renders a successful response' do
       get api_v1_albums_url, headers: valid_headers, as: :json
       expect(response).to be_successful
     end
+
+    context 'with artist_slug' do
+      let!(:artist) { create(:artist, name: 'foo') }
+
+      context 'when the artist exists' do
+        let!(:artist_albums) { create_list(:album, 2, artist: artist) }
+
+        it 'returns the albums of the artist' do
+          get api_v1_artist_albums_url(artist.slug), headers: valid_headers, as: :json
+          expect(response.body).to eq({
+            data: artist_albums.map do |album|
+              {
+                id: album.id, title: album.title, description: album.description,
+                release_year: album.release_year, genre: album.genre.name,
+                artist: album.artist.name
+              }
+            end,
+            meta: { next_page: nil }
+          }.to_json)
+          expect(response).to be_successful
+        end
+      end
+    end
   end
 
   describe 'GET /show' do
+    let!(:album) { create(:album) }
+
     it 'renders a successful response' do
       get api_v1_album_url(album), as: :json
       expect(response).to be_successful
@@ -28,7 +52,13 @@ RSpec.describe '/api/v1/albums', type: :request do
 
     context 'with valid parameters' do
       let(:attributes) do
-        attributes_for(:album, artist_id: create(:artist).id, genre_id: create(:genre).id)
+        {
+          title: 'IGOR',
+          description: 'Produced entirely by Tyler',
+          year: 2019,
+          artist_id: create(:artist).id,
+          genre_id: create(:genre).id
+        }
       end
 
       it 'creates a new album' do
@@ -43,7 +73,15 @@ RSpec.describe '/api/v1/albums', type: :request do
     end
 
     context 'with invalid parameters' do
-      let(:attributes) { attributes_for(:album, genre_id: nil) }
+      let(:attributes) do
+        {
+          title: 'IGOR',
+          description: 'Produced entirely by Tyler',
+          year: 2019,
+          artist_id: create(:artist).id,
+          genre_id: nil
+        }
+      end
 
       it 'does not create a new album' do
         expect { create_an_album }.to change(Album, :count).by(0)
@@ -62,6 +100,8 @@ RSpec.describe '/api/v1/albums', type: :request do
       patch(api_v1_album_url(album),
             params: { album: new_attributes }, headers: valid_headers, as: :json)
     end
+
+    let!(:album) { create(:album) }
 
     context 'with valid parameters' do
       let(:new_attributes) { { title: 'HERO' } }
@@ -90,6 +130,8 @@ RSpec.describe '/api/v1/albums', type: :request do
   end
 
   describe 'DELETE /destroy' do
+    let!(:album) { create(:album) }
+
     it 'destroys the requested album' do
       expect do
         delete(api_v1_album_url(album),

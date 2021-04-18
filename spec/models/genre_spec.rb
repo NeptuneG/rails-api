@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Genre, type: :model do
+describe Genre, type: :model do
   it { is_expected.to validate_presence_of(:name) }
   it { is_expected.to validate_length_of(:name).is_at_most(64) }
 end

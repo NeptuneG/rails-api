@@ -13,8 +13,14 @@ AllCops:
     - 'bin/*'
     - 'db/schema.rb'
 
-  TargetRubyVersion: 2.4
+  TargetRubyVersion: 3.0
   SuggestExtensions: false
+
+Layout/EmptyLineBetweenDefs:
+  EmptyLineBetweenClassDefs: false
+
+Metrics/AbcSize:
+  Max: 20
 
 Metrics/BlockLength:
   Exclude:
@@ -29,8 +35,17 @@ RSpec/EmptyExampleGroup:
   Exclude:
     - 'spec/integration/**/*.rb'
 
+RSpec/ExampleLength:
+  Max: 15
+
 RSpec/MultipleExpectations:
   Enabled: false
-  
+
+RSpec/MultipleMemoizedHelpers:
+  Enabled: false
+
+RSpec/NestedGroups:
+  Max: 5
+
 Style/Documentation:
   Enabled: false
