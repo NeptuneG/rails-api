@@ -2,9 +2,9 @@
 
 module Api
   module V1
-    class ApplicationController < ActionController::Base
+    class ApplicationController < ActionController::API
       def index
-        render locals: { resources: resources }
+        render locals: CursorPaginator.new(resources, request, cursor_column: cursor_column).call
       end
 
       def show
@@ -62,6 +62,10 @@ module Api
 
       def resource_params
         params.require(model_symbol).permit(permitted_attributes)
+      end
+
+      def cursor_column
+        :id
       end
     end
   end

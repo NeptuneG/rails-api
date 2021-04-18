@@ -8,6 +8,10 @@ module Api
       def resource
         Artist.friendly.find(params[:slug])
       end
+
+      def cursor_column
+        :slug
+      end
     end
   end
 end

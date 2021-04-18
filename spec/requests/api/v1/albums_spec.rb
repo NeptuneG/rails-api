@@ -27,7 +27,8 @@ describe '/api/v1/albums', type: :request do
                 release_year: album.release_year, genre: album.genre.name,
                 artist: album.artist.name
               }
-            end
+            end,
+            meta: { next_page: nil }
           }.to_json)
           expect(response).to be_successful
         end
