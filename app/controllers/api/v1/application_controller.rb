@@ -3,6 +3,8 @@
 module Api
   module V1
     class ApplicationController < ActionController::API
+      include ErrorHandler
+
       def index
         render locals: CursorPaginator.new(resources, request, cursor_column: cursor_column).call
       end
@@ -12,22 +14,13 @@ module Api
       end
 
       def create
-        resource = model.new(resource_params)
-
-        if resource.save
-          render :show, locals: { resource: resource }, status: :created
-        else
-          render json: resource.errors, status: :unprocessable_entity
-        end
+        render :show, locals: { resource: model.create!(resource_params) }, status: :created
       end
 
       def update
         update_resource = resource
-        if update_resource.update(resource_params)
-          render :show, locals: { resource: update_resource }
-        else
-          render json: update_resource.errors, status: :unprocessable_entity
-        end
+        update_resource.update!(resource_params)
+        render :show, locals: { resource: update_resource }
       end
 
       def destroy

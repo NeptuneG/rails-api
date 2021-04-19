@@ -40,11 +40,7 @@ class CursorPaginator
   end
 
   def size_valid?
-    # TODO: strict check on blank and non-integer param
-    return true if params[:size].nil?
-    return false if params[:size] < PER_PAGE_MIN || params[:size] > PER_PAGE_MAX
-
-    true
+    size >= PER_PAGE_MIN && size <= PER_PAGE_MAX
   end
 
   def validate_cursor_column
@@ -54,10 +50,14 @@ class CursorPaginator
 
   def cursor
     Base64.urlsafe_decode64(params[:starting_after] || params[:ending_before] || '')
+  rescue ArgumentError
+    raise InvalidCursor
   end
 
   def size
-    params[:size] || PER_PAGE_DEFAULT
+    @size ||= params[:size].present? ? Integer(params[:size]) : PER_PAGE_DEFAULT
+  rescue ArgumentError
+    raise InvalidSize
   end
 
   def direction
