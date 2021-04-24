@@ -42,6 +42,8 @@ gem 'elasticsearch', '~> 7.0'
 gem 'elasticsearch-model', '~> 7.0'
 gem 'elasticsearch-rails', '~> 7.0'
 
+gem 'rack-attack'
+
 group :development, :test do
   gem 'pry-byebug'
   gem 'pry-rails'

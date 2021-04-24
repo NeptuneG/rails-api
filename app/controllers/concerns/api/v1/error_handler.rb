@@ -6,15 +6,11 @@ module Api
       extend ActiveSupport::Concern
 
       ERRORS = [
-        # format: [exception_class, http_status, { code: 0000, error_msg: 'error'}]
-        [StandardError, :internal_server_error, { code: 9999, error_msg: 'Unknown system error' }],
-        [ActiveRecord::RecordNotFound, :not_found, { code: 1001, error_msg: 'Resource is not found' }],
-        [CursorPaginator::InvalidCursor, :bad_request, { code: 2001, error_msg: 'Unrecognized cursor token' }],
-        [CursorPaginator::InvalidSize, :bad_request, {
-          code: 2002,
-          error_msg: "Size of a page must be greater or equal than #{CursorPaginator::PER_PAGE_MIN} " \
-                     "and less or equal then #{CursorPaginator::PER_PAGE_MAX}"
-        }]
+        # format: [exception_class, http_status, Error::XXXXX]
+        [StandardError, :internal_server_error, Error::INTERNAL_ERROR],
+        [ActiveRecord::RecordNotFound, :not_found, Error::RESOURCE_NOT_FOUND],
+        [CursorPaginator::InvalidCursor, :bad_request, Error::INVALID_CURSOR_TOKEN],
+        [CursorPaginator::InvalidSize, :bad_request, Error::INVALID_CURSOR_SIZE]
       ].freeze
 
       included do
