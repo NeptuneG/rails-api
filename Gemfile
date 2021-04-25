@@ -45,8 +45,11 @@ gem 'elasticsearch-rails', '~> 7.0'
 gem 'rack-attack'
 
 group :development, :test do
+  gem 'factory_bot_rails'
   gem 'pry-byebug'
   gem 'pry-rails'
+  gem 'rspec-rails'
+  gem 'rswag-specs'
 end
 
 group :development do
@@ -62,10 +65,7 @@ group :development do
 end
 
 group :test do
-  gem 'factory_bot_rails'
   gem 'faker'
-  gem 'rspec-rails'
-  gem 'rswag-specs'
   gem 'shoulda-matchers'
   gem 'test-prof'
 end
