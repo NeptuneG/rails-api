@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_10_105126) do
+ActiveRecord::Schema.define(version: 2021_04_25_104558) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -56,6 +56,31 @@ ActiveRecord::Schema.define(version: 2021_04_10_105126) do
     t.index ["name"], name: "index_genres_on_name", unique: true
   end
 
+  create_table "live_events", force: :cascade do |t|
+    t.string "title", null: false
+    t.string "url", null: false
+    t.text "description"
+    t.string "price_info"
+    t.datetime "stage_one_open_at"
+    t.datetime "stage_one_start_at", null: false
+    t.datetime "stage_two_open_at"
+    t.datetime "stage_two_start_at"
+    t.bigint "live_house_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["live_house_id"], name: "index_live_events_on_live_house_id"
+    t.index ["url"], name: "index_live_events_on_url", unique: true
+  end
+
+  create_table "live_houses", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "address"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["name"], name: "index_live_houses_on_name", unique: true
+  end
+
   add_foreign_key "albums", "artists"
   add_foreign_key "albums", "genres"
+  add_foreign_key "live_events", "live_houses"
 end
