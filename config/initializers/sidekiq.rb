@@ -14,12 +14,13 @@ configuration = {
   namespace: 'sidekiq'
 }
 
+expiration = 1.day
+
 Sidekiq.configure_server do |config|
   config.redis = configuration
 
-  Sidekiq::Status.configure_server_middleware config, expiration: 30.minutes
-
-  Sidekiq::Status.configure_client_middleware config, expiration: 30.minutes
+  Sidekiq::Status.configure_server_middleware config, expiration: expiration
+  Sidekiq::Status.configure_client_middleware config, expiration: expiration
 
   Sidekiq::QueueMetrics.init(config)
 end
@@ -27,5 +28,5 @@ end
 Sidekiq.configure_client do |config|
   config.redis = configuration
 
-  Sidekiq::Status.configure_client_middleware config, expiration: 30.minutes
+  Sidekiq::Status.configure_client_middleware config, expiration: expiration
 end

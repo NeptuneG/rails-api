@@ -6,7 +6,8 @@ FactoryBot.define do
     address { 'MyString' }
 
     trait :bbl_tokyo do
-      name { 'Billboard Live Tokyo' }
+      name { 'Billboard Live TOKYO' }
+      address { '@Midtown, Roppongi, Tokyo' }
     end
   end
 end
