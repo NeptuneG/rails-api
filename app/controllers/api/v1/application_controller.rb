@@ -14,7 +14,11 @@ module Api
       end
 
       def create
-        render :show, locals: { resource: model.create!(resource_params) }, status: :created
+        new_resource = model.create!(resource_params)
+
+        render :show, locals: { resource: new_resource },
+                      status: :created,
+                      location: resource_location(new_resource)
       end
 
       def update
@@ -30,11 +34,11 @@ module Api
       private
 
       def model_name
-        controller_path.split('/').last.classify
+        @model_name ||= controller_path.split('/').last.classify
       end
 
       def model
-        model_name.constantize
+        @model ||= model_name.constantize
       end
 
       def model_symbol
@@ -54,7 +58,11 @@ module Api
       end
 
       def resource_params
-        params.require(model_symbol).permit(permitted_attributes)
+        params.permit(permitted_attributes)
+      end
+
+      def resource_location(resource)
+        public_send("api_v1_#{model_symbol}_url", resource)
       end
 
       def cursor_column

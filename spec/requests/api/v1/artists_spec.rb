@@ -23,8 +23,7 @@ describe '/api/v1/artists', type: :request do
 
   describe 'POST /create' do
     subject(:create_an_artist) do
-      post(api_v1_artists_url,
-           params: { artist: attributes }, headers: valid_headers, as: :json)
+      post(api_v1_artists_url, params: attributes, headers: valid_headers, as: :json)
     end
 
     context 'with valid parameters' do
@@ -58,8 +57,7 @@ describe '/api/v1/artists', type: :request do
 
   describe 'PATCH /update' do
     subject(:update_an_artist) do
-      patch(api_v1_artist_url(artist),
-            params: { artist: new_attributes }, headers: valid_headers, as: :json)
+      patch(api_v1_artist_url(artist), params: new_attributes, headers: valid_headers, as: :json)
     end
 
     let(:artist) { create(:artist) }
