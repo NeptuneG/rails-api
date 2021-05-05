@@ -5,22 +5,36 @@ module Api
     module ErrorHandler
       extend ActiveSupport::Concern
 
+      INTERNAL_ERROR = { code: 9999, error_msg: 'Unknown system error.' }.freeze
+      RESOURCE_NOT_FOUND = { code: 1001, error_msg: 'Resource is not found.' }.freeze
+      INVALID_CURSOR_TOKEN = { code: 2001, error_msg: 'Unrecognized cursor token.' }.freeze
+      INVALID_CURSOR_SIZE = {
+        code: 2002,
+        error_msg: "Size of a page must be greater or equal than #{CursorPaginator::PER_PAGE_MIN} " \
+                   "and less or equal then #{CursorPaginator::PER_PAGE_MAX}."
+      }.freeze
+      UNSCHEDULE_RUNNING_JOB = { code: 3002, error_msg: 'Cannot cancel a working job.' }.freeze
+      TOO_MANY_REQUESTS = { code: 8001, error_msg: 'Too many requests. Please retry later.' }.freeze
+
       ERRORS = [
-        # format: [exception_class, http_status, Error::XXXXX]
-        [StandardError, :internal_server_error, Error::INTERNAL_ERROR],
-        [ActiveRecord::RecordNotFound, :not_found, Error::RESOURCE_NOT_FOUND],
-        [CursorPaginator::InvalidCursor, :bad_request, Error::INVALID_CURSOR_TOKEN],
-        [CursorPaginator::InvalidSize, :bad_request, Error::INVALID_CURSOR_SIZE]
+        # format: [exception_class, http_status, error]
+        [StandardError, :internal_server_error, INTERNAL_ERROR],
+        [ActiveRecord::RecordNotFound, :not_found, RESOURCE_NOT_FOUND],
+        [CursorPaginator::InvalidCursor, :bad_request, INVALID_CURSOR_TOKEN],
+        [CursorPaginator::InvalidSize, :bad_request, INVALID_CURSOR_SIZE],
+        [Job::UnscheduleRunningJob, :bad_request, UNSCHEDULE_RUNNING_JOB]
       ].freeze
 
       included do
         private
 
-        ERRORS.each do |exception, status, error|
-          handler = define_method "rescue_#{exception.name.demodulize.underscore}" do
+        ERRORS.each do |exception_class, status, error|
+          handler = define_method("rescue_#{exception_class.name.demodulize.underscore}") do |exception|
+            Rails.logger.error(exception.message)
+            Rails.logger.error(exception.backtrace)
             render_error(status, error)
           end
-          rescue_from exception, with: handler
+          rescue_from exception_class, with: handler
         end
 
         rescue_from ActiveRecord::RecordInvalid, with: :rescue_record_invalid

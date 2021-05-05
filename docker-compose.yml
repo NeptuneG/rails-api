@@ -18,7 +18,7 @@ services:
     <<: *app_setting
     command: sh script/setup.sh
     ports:
-      - "3377:3377"
+      - "3377:3000"
   sidekiq:
     <<: *app_setting
     command: bundle exec sidekiq -C config/sidekiq.yml

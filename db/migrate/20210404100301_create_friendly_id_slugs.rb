@@ -8,7 +8,6 @@ MIGRATION_CLASS =
   end
 
 class CreateFriendlyIdSlugs < MIGRATION_CLASS
-  # rubocop:disable Metrics/MethodLength
   def change
     create_table :friendly_id_slugs do |t|
       t.string   :slug,           null: false
@@ -22,5 +21,4 @@ class CreateFriendlyIdSlugs < MIGRATION_CLASS
     add_index :friendly_id_slugs, %i[slug sluggable_type scope],
               length: { slug: 70, sluggable_type: 50, scope: 70 }, unique: true
   end
-  # rubocop:enable Metrics/MethodLength
 end

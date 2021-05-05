@@ -11,4 +11,4 @@ rm -f tmp/pids/server.pid
 
 bundle check || bundle install --jobs 2
 
-bundle exec rails server -p 3377 -b 0.0.0.0
+bundle exec rails server -p 3000 -b 0.0.0.0

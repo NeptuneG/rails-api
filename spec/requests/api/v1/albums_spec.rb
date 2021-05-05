@@ -46,8 +46,7 @@ describe '/api/v1/albums', type: :request do
 
   describe 'POST /create' do
     subject(:create_an_album) do
-      post(api_v1_albums_url,
-           params: { album: attributes }, headers: valid_headers, as: :json)
+      post(api_v1_albums_url, params: attributes, headers: valid_headers, as: :json)
     end
 
     context 'with valid parameters' do
@@ -97,8 +96,7 @@ describe '/api/v1/albums', type: :request do
 
   describe 'PATCH /update' do
     subject(:update_an_album) do
-      patch(api_v1_album_url(album),
-            params: { album: new_attributes }, headers: valid_headers, as: :json)
+      patch(api_v1_album_url(album), params: new_attributes, headers: valid_headers, as: :json)
     end
 
     let!(:album) { create(:album) }

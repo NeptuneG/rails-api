@@ -218,6 +218,59 @@ paths:
       responses:
         '200':
           description: successful
+  "/api/v1/jobs":
+    get:
+      summary: list jobs status
+      tags:
+      - Jobs
+      responses:
+        '200':
+          description: successful
+    post:
+      summary: enqueue job
+      tags:
+      - Jobs
+      parameters: []
+      responses:
+        '202':
+          description: job enqueued
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                type:
+                  type: string
+                args:
+                  type: array
+                  items:
+                    type: string
+              required:
+              - type
+              - args
+  "/api/v1/jobs/{jid}":
+    parameters:
+    - name: jid
+      in: path
+      description: jid
+      required: true
+      schema:
+        type: string
+    get:
+      summary: show job status
+      tags:
+      - Jobs
+      responses:
+        '200':
+          description: successful
+    delete:
+      summary: unschedule job
+      tags:
+      - Jobs
+      responses:
+        '204':
+          description: job unscheduled
 servers:
 - url: "{scheme}://{defaultHost}"
   variables:
