@@ -12,7 +12,11 @@ describe 'api/v1/jobs', type: :request do
     get('list jobs status') do
       tags 'Jobs'
 
-      response(200, 'successful') { run_test! }
+      response(200, 'successful') do
+        before { allow(Job).to receive(:all).and_return([job]) }
+
+        run_test!
+      end
     end
 
     post('enqueue job') do

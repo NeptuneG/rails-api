@@ -3,8 +3,9 @@
 require 'rails_helper'
 
 describe Job, type: :model do
-  describe '.all' do
-  end
+  # TODO: complete example
+  # describe '.all' do
+  # end
 
   describe '.find' do
     subject(:find) { described_class.find(jid) }

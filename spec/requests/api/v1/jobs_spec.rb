@@ -10,6 +10,8 @@ describe '/api/v1/jobs', type: :request do
   before { allow(Job).to receive(:find).and_return(job) }
 
   describe 'GET /index' do
+    before { allow(Job).to receive(:all).and_return([job]) }
+
     it 'renders a successful response' do
       get(api_v1_jobs_url, headers: valid_headers, as: :json)
       expect(response).to be_successful
