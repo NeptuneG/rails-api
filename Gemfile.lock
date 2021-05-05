@@ -195,7 +195,7 @@ GEM
       redis (>= 3.0.0, < 5.0)
     reentrant_mutex (1.1.1)
     regexp_parser (2.1.1)
-    rexml (3.2.4)
+    rexml (3.2.5)
     rspec-core (3.10.1)
       rspec-support (~> 3.10.0)
     rspec-expectations (3.10.1)
@@ -285,7 +285,7 @@ GEM
 PLATFORMS
   x86_64-darwin-19
   x86_64-darwin-20
-  x86_64-linux-musl
+  x86_64-linux
 
 DEPENDENCIES
   bootsnap (>= 1.4.4)
