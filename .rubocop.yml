@@ -42,6 +42,9 @@ RSpec/EmptyExampleGroup:
 RSpec/ExampleLength:
   Max: 15
 
+RSpec/MessageSpies:
+  Enabled: false
+
 RSpec/MultipleExpectations:
   Enabled: false
 

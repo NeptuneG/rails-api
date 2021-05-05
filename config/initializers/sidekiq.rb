@@ -8,8 +8,7 @@ require 'sidekiq_queue_metrics'
 Sidekiq::Throttled.setup!
 
 configuration = {
-  url: "redis://#{ENV.fetch('REDIS_HOST', 'redis')}:" \
-       "#{ENV.fetch('REDIS_PORT', 6379)}",
+  url: "redis://#{ENV.fetch('REDIS_HOST', 'redis')}:#{ENV.fetch('REDIS_PORT', 6379)}",
   password: ENV['REDIS_PASSWORD'],
   namespace: 'sidekiq'
 }

@@ -2,6 +2,7 @@
 
 require 'rails_helper'
 
+# TODO: Complete test case
 describe LiveEvents::BblTokyoScraper do # rubocop:disable RSpec/EmptyExampleGroup
   subject(:scrape) { described_class.new(year_month).call }
 

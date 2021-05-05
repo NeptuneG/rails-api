@@ -16,6 +16,7 @@ Rails.application.routes.draw do
         resources :albums, only: :index
       end
       resources :albums
+      resources :jobs, param: :jid, except: :update
     end
   end
 end

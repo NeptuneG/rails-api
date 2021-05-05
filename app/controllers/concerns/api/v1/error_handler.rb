@@ -13,6 +13,7 @@ module Api
         error_msg: "Size of a page must be greater or equal than #{CursorPaginator::PER_PAGE_MIN} " \
                    "and less or equal then #{CursorPaginator::PER_PAGE_MAX}."
       }.freeze
+      UNSCHEDULE_RUNNING_JOB = { code: 3002, error_msg: 'Cannot cancel a working job.' }.freeze
       TOO_MANY_REQUESTS = { code: 8001, error_msg: 'Too many requests. Please retry later.' }.freeze
 
       ERRORS = [
@@ -20,7 +21,8 @@ module Api
         [StandardError, :internal_server_error, INTERNAL_ERROR],
         [ActiveRecord::RecordNotFound, :not_found, RESOURCE_NOT_FOUND],
         [CursorPaginator::InvalidCursor, :bad_request, INVALID_CURSOR_TOKEN],
-        [CursorPaginator::InvalidSize, :bad_request, INVALID_CURSOR_SIZE]
+        [CursorPaginator::InvalidSize, :bad_request, INVALID_CURSOR_SIZE],
+        [Job::UnscheduleRunningJob, :bad_request, UNSCHEDULE_RUNNING_JOB]
       ].freeze
 
       included do
@@ -29,6 +31,7 @@ module Api
         ERRORS.each do |exception_class, status, error|
           handler = define_method("rescue_#{exception_class.name.demodulize.underscore}") do |exception|
             Rails.logger.error(exception.message)
+            Rails.logger.error(exception.backtrace)
             render_error(status, error)
           end
           rescue_from exception_class, with: handler
