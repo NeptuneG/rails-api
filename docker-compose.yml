@@ -27,13 +27,13 @@ services:
   redis:
     image: redis:6.0-alpine
     ports:
-      - "6379:6379"
+      - "16379:6379"
     volumes:
       - redis-data:/data
   db:
     image: postgres:13.2-alpine
     ports:
-      - "5432:5432"
+      - "15432:5432"
     environment:
       TZ: 'Asia/Tokyo'
       POSTGRES_HOST_AUTH_METHOD: 'trust'

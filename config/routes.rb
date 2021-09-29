@@ -4,6 +4,7 @@ require 'sidekiq/web'
 require 'sidekiq-status/web'
 
 Rails.application.routes.draw do
+  post '/graphql', to: 'graphql#execute'
   mount Rswag::Ui::Engine => '/api-docs'
   mount Rswag::Api::Engine => '/api-docs'
 
