@@ -16,14 +16,14 @@ spec:
         - name: regcred
       initContainers:
         - name: db-creator
-          image: neptuneg/rails-api:v4
+          image: neptuneg/rails-api:v7
           command:
             - "bundle"
             - "exec"
             - "rails"
             - "db:create"
         - name: db-migrator
-          image: neptuneg/rails-api:v4
+          image: neptuneg/rails-api:v7
           command:
             - "bundle"
             - "exec"
@@ -31,7 +31,7 @@ spec:
             - "db:migrate"
       containers:
       - name: app
-        image: neptuneg/rails-api:v4
+        image: neptuneg/rails-api:v7
         command:
           - "bundle"
           - "exec"

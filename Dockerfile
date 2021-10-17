@@ -16,8 +16,11 @@ RUN set -x &&\
 RUN mkdir $APP_HOME
 WORKDIR $APP_HOME
 
-COPY . ./
+COPY Gemfile ./Gemfile
+COPY Gemfile.lock ./Gemfile.lock
 
 RUN bundle install --jobs 2 --retry 5 --path $BUNDLE_PATH
+
+COPY . ./
 
 EXPOSE 3000

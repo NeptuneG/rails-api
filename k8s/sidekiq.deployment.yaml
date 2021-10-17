@@ -3,6 +3,7 @@ kind: Deployment
 metadata:
   name: sidekiq-deployment
 spec:
+  replicas: 2
   selector:
     matchLabels:
       name: sidekiq
@@ -16,7 +17,7 @@ spec:
         - name: regcred
       containers:
       - name: sidekiq
-        image: neptuneg/rails-api:v4
+        image: neptuneg/rails-api:v7
         command:
           - "bundle"
           - "exec"

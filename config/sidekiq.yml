@@ -2,3 +2,4 @@
 :queues:
   - default
   - live_events
+  - scheduled_jobs
