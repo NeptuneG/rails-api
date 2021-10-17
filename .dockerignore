@@ -1,0 +1,7 @@
+.vscode/
+.github/
+tmp/
+*.log
+k8s/
+docker-compose.yml
+Dockerfile

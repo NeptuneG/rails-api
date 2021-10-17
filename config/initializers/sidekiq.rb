@@ -8,8 +8,8 @@ require 'sidekiq_queue_metrics'
 Sidekiq::Throttled.setup!
 
 configuration = {
-  url: "redis://#{ENV.fetch('REDIS_HOST', 'redis')}:#{ENV.fetch('REDIS_PORT', 6379)}",
-  password: ENV['REDIS_PASSWORD'],
+  url: "redis://#{ENV.fetch('REDIS_CACHE_HOST', 'redis')}:#{ENV.fetch('REDIS_CACHE_PORT', 6379)}",
+  password: ENV['REDIS_CACHE_PASSWORD'],
   namespace: 'sidekiq'
 }
 
@@ -22,6 +22,10 @@ Sidekiq.configure_server do |config|
   Sidekiq::Status.configure_client_middleware config, expiration: expiration
 
   Sidekiq::QueueMetrics.init(config)
+
+  schedule_file = 'config/schedule.yml'
+
+  Sidekiq::Cron::Job.load_from_hash YAML.load_file(schedule_file) if File.exist?(schedule_file)
 end
 
 Sidekiq.configure_client do |config|

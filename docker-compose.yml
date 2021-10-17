@@ -8,8 +8,8 @@ x-app-setting: &app_setting
     - db
     - redis
   environment:
-    DB_HOST: db
-    REDIS_HOST: redis
+    POSTGRES_HOST: db
+    REDIS_CACHE_HOST: redis
     GEM_HOME: /bundle
   stdin_open: true
   tty: true

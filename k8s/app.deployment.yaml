@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-deployment
+spec:
+  selector:
+    matchLabels:
+      name: app
+  template:
+    metadata:
+      labels:
+        name: app
+        app: app
+    spec:
+      imagePullSecrets:
+        - name: regcred
+      initContainers:
+        - name: db-creator
+          image: neptuneg/rails-api:v7
+          command:
+            - "bundle"
+            - "exec"
+            - "rails"
+            - "db:create"
+        - name: db-migrator
+          image: neptuneg/rails-api:v7
+          command:
+            - "bundle"
+            - "exec"
+            - "rails"
+            - "db:migrate"
+      containers:
+      - name: app
+        image: neptuneg/rails-api:v7
+        command:
+          - "bundle"
+          - "exec"
+          - "rails"
+          - "server"
+          - "--binding"
+          - "0.0.0.0"
+        resources:
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 3000
