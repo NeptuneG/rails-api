@@ -24,7 +24,7 @@ gem 'redis-namespace', '~> 1.8.1'
 gem 'rswag-api', '~> 2.4.0'
 gem 'rswag-ui', '~> 2.4.0'
 gem 'sidekiq', '~> 6.1.3'
-gem "sidekiq-cron", "~> 1.1"
+gem 'sidekiq-cron', '~> 1.1'
 gem 'sidekiq-failures'
 gem 'sidekiq_queue_metrics', '~> 3.0.0'
 gem 'sidekiq-status', '~> 1.1.4'
