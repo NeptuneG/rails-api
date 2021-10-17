@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sidekiq-deployment
+spec:
+  selector:
+    matchLabels:
+      name: sidekiq
+  template:
+    metadata:
+      labels:
+        name: sidekiq
+        app: app
+    spec:
+      imagePullSecrets:
+        - name: regcred
+      containers:
+      - name: sidekiq
+        image: neptuneg/rails-api:v4
+        command:
+          - "bundle"
+          - "exec"
+          - "sidekiq"
+          - "-C"
+          - "config/sidekiq.yml"
+        resources:
+          limits:
+            memory: "256Mi"
+            cpu: "500m"

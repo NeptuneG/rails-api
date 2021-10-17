@@ -3,7 +3,7 @@ FROM ruby:3.0.0-alpine3.13
 ENV APP_HOME=/app \
     BUNDLE_PATH=/bundle \
     GEM_PATH=/bundle \
-    PACKAGES='build-base git ruby-dev postgresql-dev make g++ musl-dev libffi-dev linux-headers tzdata wget less'
+    PACKAGES='build-base git ruby-dev postgresql-dev make g++ musl-dev libffi-dev linux-headers tzdata wget less curl'
 
 RUN set -x &&\
     echo 'http://dl-cdn.alpinelinux.org/alpine/v3.12/main' >> /etc/apk/repositories &&\
@@ -17,5 +17,7 @@ RUN mkdir $APP_HOME
 WORKDIR $APP_HOME
 
 COPY . ./
+
+RUN bundle install --jobs 2 --retry 5 --path $BUNDLE_PATH
 
 EXPOSE 3000
